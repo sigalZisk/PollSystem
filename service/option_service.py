@@ -10,7 +10,6 @@ async def get_by_id(option_id: int) -> Optional[Option]:
 async def get_by_question_id(question_id: int) -> List[Option]:
     return await option_repository.get_by_question_id(question_id)
 
-
 async def create_option(option: Option):
     return await option_repository.create_option(option)
 

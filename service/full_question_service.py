@@ -19,7 +19,7 @@ async def get_all() -> List[FullQuestion]:
 
     return [
         FullQuestion(
-            id=question.id,
+            question_id=question.id,
             title=question.title,
             options=(await option_service.get_by_question_id(question.id))
         )

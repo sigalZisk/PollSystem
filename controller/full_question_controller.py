@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException
 from starlette import status
 
 from model.full_question import FullQuestion
@@ -16,8 +16,7 @@ async def get_question_by_id(question_id: int) -> FullQuestion:
     existing_question = await full_question_service.get_by_id(question_id)
     if not existing_question:
         raise HTTPException(status_code=400, detail=f"Question with question_id: {question_id} not found")
-    else:
-        return existing_question
+    return existing_question
 
 @router.post("/", response_model=int, status_code=status.HTTP_201_CREATED)
 async def create_full_question(full_question: FullQuestion) -> int:
@@ -47,6 +46,6 @@ async def delete_question_option(option_id: int):
 async def delete_full_question(question_id: int):
     await full_question_service.delete_full_question(question_id)
 
-@router.get("/", response_model=FullQuestion, status_code=status.HTTP_200_OK)
+@router.get("/", response_model=List[FullQuestion], status_code=status.HTTP_200_OK)
 async def get_full_questions() -> List[FullQuestion]:
     return await full_question_service.get_all()
